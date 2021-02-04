@@ -1,0 +1,154 @@
+﻿@*@model IEnumerable<ClassicGarage.Models.OwnerModels>*@
+
+@model ClassicGarage.Models.GarageViewModels
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Właściciele</h2>
+
+<p>
+    @Html.ActionLink("Stwórz nowy", "Create", "OwnerModels")
+</p>
+
+@{var headerMetadata = Model.OwnerModels.FirstOrDefault();}
+<table class="table">
+    <tr>
+        <th>
+            Imię
+        </th>
+        <th>
+            Nazwisko
+        </th>
+        <th>
+            Nr. Telefonu
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => headerMetadata.Email)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.OwnerModels)
+    {
+        string selectedRow = "";
+        if (item.ID == ViewBag.Id_Owner)
+        {
+            selectedRow = "success";
+        }
+        <tr class="@selectedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.ActionLink("Pokaż detale", "Index", new { id = item.ID }) |
+                @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Usuń", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@if (Model.CarModels != null)
+{
+    <h3>Samochody wybranego użytkownika</h3>
+    var headerMetadataS = Model.CarModels.FirstOrDefault();
+
+    <table class="table">
+        <tr>
+            <th>
+                Właściciel
+            </th>
+            <th>
+                Marka
+            </th>
+            <th>
+                Model
+            </th>
+            <th>
+                Rok
+            </th>
+            <th>
+                Numer VIN
+            </th>
+            <th>
+                Seria
+            </th>
+            <th>
+                Zdjęcie
+            </th>
+            <th>
+                Data zakupu
+            </th>
+            <th>
+                Data sprzedaży
+            </th>
+            <th>
+                Kwota zakupu
+            </th>
+            <th>
+                Kwota sprzedaży
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.CarModels)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Owner.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Brand.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VIN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Series)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Photo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchaseDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SaleDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchasePrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SellPrice)
+                </td>
+                <td>
+                    @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Usuń", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+}

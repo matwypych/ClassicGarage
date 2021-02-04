@@ -1,0 +1,70 @@
+﻿@model IEnumerable<ClassicGarage.Models.PartsModels>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Części</h2>
+
+<p>
+    @Html.ActionLink("Stwórz nowy", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Model
+        </th>
+        <th>
+           Nazwa części
+        </th>
+        <th>
+            Numer części
+        </th>
+        <th>
+           Cena zakupu
+        </th>
+        <th>
+           Cena sprzedaży
+        </th>
+        <th>
+            Data zakupu
+        </th>
+        <th>
+            Data sprzedaży
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Car.Model)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PartNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PurchasePrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SellPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PurchaseDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SaleDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Szczegóły", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Usuń", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

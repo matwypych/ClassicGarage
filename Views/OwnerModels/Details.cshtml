@@ -1,0 +1,46 @@
+﻿@model ClassicGarage.Models.OwnerModels
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Szczegóły</h2>
+
+
+<dt>
+   Imię
+</dt>
+
+<dd>
+    @Html.DisplayFor(model => model.FirstName)
+</dd>
+
+<dt>
+    Nazwisko
+</dt>
+
+<dd>
+    @Html.DisplayFor(model => model.LastName)
+</dd>
+
+<dt>
+    Nr. Telefonu
+</dt>
+
+<dd>
+    @Html.DisplayFor(model => model.PhoneNo)
+</dd>
+
+<dt>
+    @Html.DisplayNameFor(model => model.Email)
+</dt>
+
+<dd>
+    @Html.DisplayFor(model => model.Email)
+</dd>
+
+@Html.ActionLink("Edytuj", "Edit", new { id = Model.ID })
+<br />
+<br />
+@Html.ActionLink("Wróć", "Index")

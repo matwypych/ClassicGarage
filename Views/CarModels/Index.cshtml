@@ -1,0 +1,216 @@
+﻿@model ClassicGarage.Models.GarageViewModels
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Samochody</h2>
+
+<p>
+    @Html.ActionLink("Stwórz nowy", "Create")
+</p>
+
+
+@using (Html.BeginForm())
+{
+    <p>
+
+        Marka:    @Html.DropDownList("BrandID", null, "All", htmlAttributes: new { @class = "form-control" })
+        <br />
+        <input type="submit" value="Filtruj" />
+
+    </p>
+}
+
+
+@{var headerMetadata = Model.CarModels.FirstOrDefault();}
+
+<table class="table">
+    <tr>
+        <th>
+            Właściciel
+        </th>
+        <th>
+            Marka
+        </th>
+        <th>
+            Model
+        </th>
+        <th>
+            Rok
+        </th>
+        <th>
+            Numer VIN
+        </th>
+        <th>
+            Seria
+        </th>
+        <th>
+            Zdjęcie
+        </th>
+        <th>
+            Data zakupu
+        </th>
+        <th>
+            Data sprzedaży
+        </th>
+        <th>
+            Kwota zakupu
+        </th>
+        <th>
+            Kwota sprzedaży
+        </th>
+
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.CarModels)
+    {
+        string selectedRow = "";
+        if (item.ID == ViewBag.Id_Ad || item.ID == ViewBag.Id_Repair)
+        {
+            selectedRow = "success";
+        }
+        <tr class="@selectedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.Owner.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VIN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Series)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Photo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SaleDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchasePrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SellPrice)
+            </td>
+
+            <td>
+                @Html.ActionLink("Naprawy", "Index", new { idRepair = item.ID }) |
+                @Html.ActionLink("Ogłoszenia", "Index", new { id = item.ID }) |
+                @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Usuń", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+@if (Model.AdsModels != null)
+{
+    <h3>Ogłoszenia dotyczące tego samochodu</h3>
+    var headerMetadataS = Model.AdsModels.FirstOrDefault();
+
+    <table class="table">
+        <tr>
+            <th>
+                ID Samochodu
+            </th>
+            <th>
+                Aktywne
+            </th>
+            <th>
+                Cena
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.AdsModels)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CarID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Active)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OfferAmount)
+                </td>
+                <td>
+                    @Html.ActionLink("Edytuj", "../AdvertisementModels/Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Szczegóły", "../AdvertisementModels/Details", new { id = item.ID }) |
+                    @Html.ActionLink("Usuń", "../AdvertisementModels/Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+}
+
+
+@if (Model.Repairs != null)
+{
+    <h3>Naprawy dotyczące tego samochodu</h3>
+    var headerMetadataS2 = Model.Repairs.FirstOrDefault();
+
+    <table class="table">
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Nazwa
+            </th>
+            <th>
+                Opis
+            </th>
+            <th>
+                Koszt
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Repairs)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                @Html.ActionLink("Edytuj", "../RepairModels/Edit", new { id = item.ID }) |
+                @Html.ActionLink("Szczegóły", "../RepairModels/Details", new { id = item.ID }) |
+                @Html.ActionLink("Usuń", "../RepairModels/Delete", new { id = item.ID })
+            </td>
+        </tr>
+        }
+
+    </table>
+
+}
