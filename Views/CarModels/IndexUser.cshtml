@@ -1,0 +1,94 @@
+﻿@model ClassicGarage.Models.GarageViewModels
+
+@{
+    ViewBag.Title = "IndexUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Moje samochody</h2>
+
+<p>
+    @Html.ActionLink("Dodaj nowy samochód", "CreateUser")
+</p>
+
+@{var headerMetadata = Model.CarModels.FirstOrDefault();}
+
+<table class="table">
+    <tr>
+ 
+        <th>
+            Marka
+        </th>
+        <th>
+            Model
+        </th>
+        <th>
+            Rocznik
+        </th>
+        <th>
+            VIN
+        </th>
+        <th>
+            Seria
+        </th>
+        <th>
+            Zdjęcie
+        </th>
+        <th>
+            Data Zakupu
+        </th>
+        <th>
+            Data sprzedaży
+        </th>
+        <th>
+            Cena zakupu
+        </th>
+        <th>
+           Cena sprzedaży
+        </th>
+       
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.CarModels)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VIN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Series)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Photo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SaleDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchasePrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SellPrice)
+            </td>
+            <td>
+                @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Usuń", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>

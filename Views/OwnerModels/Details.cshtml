@@ -9,7 +9,7 @@
 
 
 <dt>
-   Imię
+    Imię
 </dt>
 
 <dd>
@@ -43,4 +43,11 @@
 @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID })
 <br />
 <br />
-@Html.ActionLink("Wróć", "Index")
+@if (User.IsInRole("user"))
+{
+    @Html.ActionLink("Powrót", "IndexUser")
+}
+@if (User.IsInRole("admin"))
+{
+    @Html.ActionLink("Powrót", "Index")
+}

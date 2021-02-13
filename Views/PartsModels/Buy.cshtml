@@ -1,0 +1,68 @@
+﻿@model ClassicGarage.Models.PartsModels
+
+@{
+    ViewBag.Title = "Buy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Kup</h2>
+
+<h3>Czy na pewno chcesz kupić?</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Części</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.CarId)
+    @Html.HiddenFor(model => model.Brand)
+    <div class="form-group">
+        @Html.LabelFor(model => model.Brand, "*Model", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Brand, new { htmlAttributes = new { @class = "form-control", @disabled = true } })
+            @Html.ValidationMessageFor(model => model.Brand, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @Html.HiddenFor(model => model.Name)
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, "*Nazwa części", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @disabled = true } })
+
+        </div>
+    </div>
+    @Html.HiddenFor(model => model.PartNumber)
+    @Html.HiddenFor(model => model.PurchasePrice)
+    @Html.HiddenFor(model => model.SellPrice)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SellPrice, "Cena sprzedaży", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SellPrice, new { htmlAttributes = new { @class = "form-control", @disabled = true } })
+
+        </div>
+    </div>
+
+    @Html.HiddenFor(model => model.PurchaseDate)
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Kup" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Powrót", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

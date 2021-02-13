@@ -1,0 +1,52 @@
+﻿@model ClassicGarage.Models.GarageViewModels
+
+@{
+    ViewBag.Title = "IndexUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Profil Użytkownika</h2>
+
+@{var headerMetadata = Model.OwnerModels.FirstOrDefault();}
+
+
+<table class="table">
+    <tr>
+        <th>
+            Imię
+        </th>
+        <th>
+            Nazwisko
+        </th>
+        <th>
+            Telefon
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => headerMetadata.Email)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.OwnerModels)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Szczegóły", "Details", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>

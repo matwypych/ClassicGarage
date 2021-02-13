@@ -53,7 +53,15 @@
 }
 
 <div>
-    @Html.ActionLink("Powrót", "Index")
+    @if (User.IsInRole("user"))
+    {
+        @Html.ActionLink("Powrót", "IndexUser")
+    }
+    @if (User.IsInRole("admin"))
+    {
+        @Html.ActionLink("Powrót", "Index")
+    }
+
 </div>
 
 @section Scripts {

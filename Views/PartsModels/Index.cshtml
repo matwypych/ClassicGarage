@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ClassicGarage.Models.PartsModels>
+﻿@model ClassicGarage.Models.GarageViewModels
 
 @{
     ViewBag.Title = "Index";
@@ -13,19 +13,22 @@
 <table class="table">
     <tr>
         <th>
+            Marka
+        </th>
+        <th>
             Model
         </th>
         <th>
-           Nazwa części
+            Nazwa części
         </th>
         <th>
             Numer części
         </th>
         <th>
-           Cena zakupu
+            Cena zakupu
         </th>
         <th>
-           Cena sprzedaży
+            Cena sprzedaży
         </th>
         <th>
             Data zakupu
@@ -36,35 +39,129 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+
+    @using (Html.BeginForm())
+    {
+
+        <h2>Wszystkie części</h2>
+
+        foreach (var item in Model.Parts)
+        {
+            if (item.Owner == 0)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Brand)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Car.Model)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PartNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PurchasePrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SellPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PurchaseDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SaleDate)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Usuń", "Delete", new { id = item.ID })
+                    </td>
+                </tr>
+            }
+        }
+    }
+
+
+
+</table>
+
+<table class="table">
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Car.Model)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PartNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PurchasePrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SellPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PurchaseDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SaleDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edytuj", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Szczegóły", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Usuń", "Delete", new { id=item.ID })
-        </td>
+        <th>
+            Marka
+        </th>
+        <th>
+            Model
+        </th>
+        <th>
+            Nazwa części
+        </th>
+        <th>
+            Numer części
+        </th>
+        <th>
+            Cena zakupu
+        </th>
+        <th>
+            Cena sprzedaży
+        </th>
+        <th>
+            Data zakupu
+        </th>
+        <th>
+            Data sprzedaży
+        </th>
+        <th></th>
     </tr>
-}
+
+
+    @using (Html.BeginForm())
+    {
+
+        <h2>Zamówione części</h2>
+
+        foreach (var item in Model.Parts)
+        {
+            if (item.Owner != 0)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Brand)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Car.Model)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PartNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PurchasePrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SellPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PurchaseDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SaleDate)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Usuń", "Delete", new { id = item.ID })
+                    </td>
+                </tr>
+            }
+        }
+    }
+
+
 
 </table>

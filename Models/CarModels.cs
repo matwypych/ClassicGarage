@@ -50,7 +50,7 @@ namespace ClassicGarage.Models
         [Display(Name = "Sale price")]
         public double? SellPrice { set; get; }
 
-        public int OwnerId { set; get; }
+        public int? OwnerId { set; get; }
 
         public int? AdvertisementID { set; get; }
        

@@ -7,9 +7,20 @@
 
 <h2>Ogłoszenia</h2>
 
-<p>
-    @Html.ActionLink("Stwórz nowe", "Create")
-</p>
+@if (User.IsInRole("user"))
+{
+    <p>
+        @Html.ActionLink("Stwórz nowy", "CreateUser")
+    </p>
+
+}
+else if (User.IsInRole("admin"))
+{
+    <p>
+        @Html.ActionLink("Stwórz nowy", "Create")
+    </p>
+}
+
 <table class="table">
     <tr>
         <th>
@@ -24,23 +35,28 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CarID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Active)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OfferAmount)
-        </td>
-        <td>
-            @Html.ActionLink("Edytuj", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Szczegóły", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Usuń", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @using (Html.BeginForm())
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CarID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Active)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OfferAmount)
+                </td>
+                <td>
+                    @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Usuń", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+    }
+
 
 </table>

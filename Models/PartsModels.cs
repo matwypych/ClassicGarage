@@ -13,7 +13,10 @@ namespace ClassicGarage.Models
         public int ID { set; get; }
 
         [Required]
-        public int CarId { set; get; }
+        public int? CarId { set; get; }
+
+        [Required]
+        public string Brand { set; get; }
 
         [Required]
         public string Name { set; get; }
@@ -21,6 +24,7 @@ namespace ClassicGarage.Models
         [Required]
         public int PartNumber { set; get; }
 
+        public int? Owner { set; get; }
 
         [DataType(DataType.Currency)]
         [Required]
@@ -45,5 +49,6 @@ namespace ClassicGarage.Models
         public DateTime? SaleDate { set; get; }
 
         public virtual CarModels Car { get; set; }
+
     }
 }

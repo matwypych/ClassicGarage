@@ -1,0 +1,118 @@
+﻿@model ClassicGarage.Models.GarageViewModels
+
+@{
+    ViewBag.Title = "IndexUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Części</h2>
+
+@using (Html.BeginForm())
+{
+    <p>
+
+        Marka: @Html.DropDownList("BrandID", null, "All", htmlAttributes: new { @class = "form-control" })
+        <br />
+        <input type="submit" value="Filtruj" />
+
+    </p>
+}
+
+
+<h2>Wszystkie części</h2>
+
+@{var headerMetadata = Model.Parts.FirstOrDefault();}
+@{var headerMetadata2 = Model.OwnerModels.FirstOrDefault();}
+
+<table class="table">
+    <tr>
+        <th>
+            Marka
+        </th>
+        <th>
+            Model
+        </th>
+        <th>
+            Nazwa części
+        </th>
+        <th>
+            Cena
+        </th>
+    </tr>
+
+    @using (Html.BeginForm())
+    {
+        foreach (var item in Model.Parts)
+        {
+            if (item.Owner == 0)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Brand)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Car.Model)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SellPrice)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Kup", "Buy", new { id = item.ID })
+                    </td>
+                </tr>
+            }
+
+        }
+    }
+
+</table>
+
+
+<h2>Zamówione części</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Marka
+        </th>
+        <th>
+            Model
+        </th>
+        <th>
+            Nazwa części
+        </th>
+        <th>
+            Cena
+        </th>
+    </tr>
+
+    @using (Html.BeginForm())
+    {
+        foreach (var item in Model.Parts)
+        {
+            if (item.Owner == headerMetadata2.ID)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Brand)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Car.Model)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SellPrice)
+                    </td>
+                </tr>
+            }
+
+        }
+    }
+
+</table>
+

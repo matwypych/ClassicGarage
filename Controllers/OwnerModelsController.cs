@@ -15,8 +15,8 @@ namespace ClassicGarage.Controllers
         private GarageContext db = new GarageContext();
 
         // GET: OwnerModel
-        [Authorize(Users = "admin@admin.pl")]
-        //[Authorize (Roles ="admin")]
+        //[Authorize(Users = "admin@admin.pl")]
+        [Authorize (Roles ="admin")]
         public ActionResult Index(int? id )
         {
           
@@ -34,7 +34,23 @@ namespace ClassicGarage.Controllers
             return View(viewModel);
         }
 
+        // GET: OwnerModel
+        //[Authorize(Users = "admin@admin.pl")]
+        [Authorize(Roles = "user")]
+        public ActionResult IndexUser()
+        {
+            var viewModel = new GarageViewModels();
+
+            viewModel.OwnerModels = db.Owners.Where(i => i.Email==User.Identity.Name).Include(s => s.Cars);
+            
+            Console.WriteLine(viewModel.OwnerModels);
+
+            return View(viewModel);
+        }
+
+
         //nazwa taka sama jak nazwa pliku html
+        [Authorize(Roles = "admin,user")]
         public ActionResult Details(int? id)
         {
             if(id==null)
@@ -51,6 +67,7 @@ namespace ClassicGarage.Controllers
             return View(owner);
         }
 
+        [Authorize(Roles = "admin,user")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -69,6 +86,7 @@ namespace ClassicGarage.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin,user")]
         public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,PhoneNo,Email")] OwnerModels owner)
         {
             if (ModelState.IsValid)
@@ -80,6 +98,7 @@ namespace ClassicGarage.Controllers
             return View(owner);
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -97,6 +116,7 @@ namespace ClassicGarage.Controllers
         // POST: /Movies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             OwnerModels owner = db.Owners.Find(id);
@@ -104,12 +124,14 @@ namespace ClassicGarage.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
- 
+
+        [Authorize(Roles = "admin,user")]
         public ActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "admin,user")]
         [HttpPost]
         public ActionResult Create([Bind(Include ="FirstName, LastName, PhoneNo, Email")] OwnerModels owner)
         {

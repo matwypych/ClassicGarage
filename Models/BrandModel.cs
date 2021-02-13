@@ -10,7 +10,6 @@ namespace ClassicGarage.Models
         public int Id { get; set; }
         public string Name { get; set; }
 
-
         public ICollection<CarModels> Cars { get; set; }
     }
 }

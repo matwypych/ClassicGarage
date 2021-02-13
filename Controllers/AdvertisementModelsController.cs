@@ -15,13 +15,16 @@ namespace ClassicGarage.Controllers
     {
         private GarageContext db = new GarageContext();
 
+        
         // GET: AdvertisementModels
         public ActionResult Index()
         {
             return View(db.Advertisements.ToList());
         }
 
+
         // GET: AdvertisementModels/Details/5
+        
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,8 +40,17 @@ namespace ClassicGarage.Controllers
         }
 
         // GET: AdvertisementModels/Create
+        [Authorize(Roles = "admin")]
         public ActionResult Create()
         {
+            ViewBag.CarID = new SelectList(db.Cars, "ID", "Model");
+            return View();
+        }
+
+        [Authorize(Roles = "user")]
+        public ActionResult CreateUser()
+        {
+            ViewBag.CarID = new SelectList(db.Cars, "ID", "Model");
             return View();
         }
 
@@ -47,6 +59,7 @@ namespace ClassicGarage.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public ActionResult Create([Bind(Include = "ID,CarID,Active,OfferAmount")] AdvertisementModels advertisementModels)
         {
             if (ModelState.IsValid)
@@ -59,7 +72,23 @@ namespace ClassicGarage.Controllers
             return View(advertisementModels);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "user")]
+        public ActionResult CreateUser([Bind(Include = "ID,CarID,Active,OfferAmount")] AdvertisementModels advertisementModels)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Advertisements.Add(advertisementModels);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(advertisementModels);
+        }
+
         // GET: AdvertisementModels/Edit/5
+        [Authorize(Roles = "admin, user")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -79,6 +108,7 @@ namespace ClassicGarage.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin, user")]
         public ActionResult Edit([Bind(Include = "ID,CarID,Active,OfferAmount")] AdvertisementModels advertisementModels)
         {
             if (ModelState.IsValid)
@@ -91,6 +121,7 @@ namespace ClassicGarage.Controllers
         }
 
         // GET: AdvertisementModels/Delete/5
+        [Authorize(Roles = "admin, user")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -108,6 +139,7 @@ namespace ClassicGarage.Controllers
         // POST: AdvertisementModels/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin, user")]
         public ActionResult DeleteConfirmed(int id)
         {
             AdvertisementModels advertisementModels = db.Advertisements.Find(id);

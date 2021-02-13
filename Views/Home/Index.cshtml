@@ -1,12 +1,42 @@
-﻿@{
+﻿@model IEnumerable<ClassicGarage.Models.OwnerModels>
+
+@{
     ViewBag.Title = "Classic Garage";
 }
 
 <div class="jumbotron">
     <h1>Classic Garage</h1>
     <p class="lead">Klasyczny garaż jest to aplikacja webowa kontrolująca ołgłoszenia, naprawy i sprzedaż samochodów</p>
- 
 </div>
+
+@using (Html.BeginForm())
+{
+    if (User.IsInRole("user"))
+    {
+        {
+            bool ok = false;
+
+            foreach (var item in Model)
+            {
+
+                if (item.Email == User.Identity.Name)
+                {
+                    <h1>Witaj użytkowniku</h1>
+                    ok = true;
+                }
+            }
+            if (!ok)
+            {
+                <p style="font-size:30px;color:Red; text-align:center" class="lead">Uzupełnij swoje dane aby uzyskać pełną funkcjonalność!</p>
+                <p style="font-size:30px;color:white; text-align:center" class="lead">@Html.ActionLink("Uzupełnij", "../OwnerModels/Create")</p>
+            }
+        }
+
+    }
+}
+
+
+
 
 <div class="jumbotron">
     <img src="~/Photos/garage.jpg" alt="DreamGarage" width="1000" height="600">

@@ -32,7 +32,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Brands.Name)
+            @Html.DisplayFor(model => model.Brand.Name)
         </dd>
 
         <dt>
@@ -111,5 +111,12 @@
 </div>
 <p>
     @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Powrót", "Index")
+    @if (User.IsInRole("user"))
+    {
+        @Html.ActionLink("Powrót", "IndexUser")
+    }
+    @if (User.IsInRole("admin"))
+    {
+        @Html.ActionLink("Powrót", "Index")
+    }
 </p>

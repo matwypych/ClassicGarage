@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ClassicGarage.Models.RepairModels>
+
+@{
+    ViewBag.Title = "IndexUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Moje Naprawy</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Marka
+        </th>
+        <th>
+            Model
+        </th>
+        <th>
+            Nazwa zgłoszenia
+        </th>
+        <th>
+            Opis
+        </th>
+        <th>
+            Koszt
+        </th>
+        <th></th>
+    </tr>
+
+    @using (Html.BeginForm())
+    {
+        foreach (var repair in Model)
+        {
+            
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => repair.Car.Brand.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => repair.Car.Model)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => repair.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => repair.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => repair.Cost)
+                    </td>     
+                </tr>
+            
+
+        }
+
+    }
+
+</table>

@@ -13,16 +13,22 @@
 <table class="table">
     <tr>
         <th>
-            ID
+            Klient
         </th>
         <th>
-           Nazwa
+            Marka
+        </th>
+        <th>
+            Model
+        </th>
+        <th>
+            Nazwa naprawy
         </th>
         <th>
             Opis
         </th>
         <th>
-           Koszt
+            Koszt
         </th>
         <th></th>
     </tr>
@@ -30,7 +36,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.CarId)
+            @Html.DisplayFor(modelItem => item.Car.Owner.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Car.Brand.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Car.Model)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Name)

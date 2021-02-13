@@ -1,4 +1,4 @@
-﻿@model ClassicGarage.Models.PartsModels
+﻿@model ClassicGarage.Models.GarageViewModels
 
 @{
     ViewBag.Title = "Details";
@@ -7,6 +7,9 @@
 
 <h2>Szczegóły</h2>
 
+@{var headerMetadata = Model.Parts.FirstOrDefault();}
+@{var headerMetadata2 = Model.OwnerModels.FirstOrDefault();}
+
 <div>
     <h4>Części</h4>
     <hr />
@@ -14,17 +17,32 @@
         <dt>
             Model
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.Car.Model)
+            @Html.DisplayFor(model => headerMetadata.Car.Model)
         </dd>
 
         <dt>
-           Nazwa części
+             Zamawiający
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => headerMetadata2.LastName)
+        </dd>
+
+        <dt>
+            Email zamawiającego
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => headerMetadata2.Email)
+        </dd>
+
+        <dt>
+            Nazwa części
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => headerMetadata.Name)
         </dd>
 
         <dt>
@@ -32,23 +50,23 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PartNumber)
+            @Html.DisplayFor(model => headerMetadata.PartNumber)
         </dd>
 
         <dt>
-           Cena zakupu
+            Cena zakupu
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PurchasePrice)
+            @Html.DisplayFor(model => headerMetadata.PurchasePrice)
         </dd>
 
         <dt>
-           Cena sprzedaży
+            Cena sprzedaży
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SellPrice)
+            @Html.DisplayFor(model => headerMetadata.SellPrice)
         </dd>
 
         <dt>
@@ -56,7 +74,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PurchaseDate)
+            @Html.DisplayFor(model => headerMetadata.PurchaseDate)
         </dd>
 
         <dt>
@@ -64,12 +82,11 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SaleDate)
+            @Html.DisplayFor(model => headerMetadata.SaleDate)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Powrót", "Index")
 </p>

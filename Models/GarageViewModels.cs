@@ -12,6 +12,7 @@ namespace ClassicGarage.Models
         public IEnumerable<BrandModel> BrandModels { get; set; }
         public IEnumerable<AdvertisementModels> AdsModels { get; set; }
         public IEnumerable<RepairModels> Repairs { get; set; }
+        public IEnumerable<PartsModels> Parts { get; set; }
 
     }
 }
