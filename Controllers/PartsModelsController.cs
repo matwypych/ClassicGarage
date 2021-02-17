@@ -33,7 +33,7 @@ namespace ClassicGarage.Controllers
         }
 
         // GET: PartsModels
-        [Authorize(Roles = "user")]
+        
         public ActionResult IndexUser(string BrandID)
         {
             var viewModel = new GarageViewModels();
@@ -118,9 +118,15 @@ namespace ClassicGarage.Controllers
             partsModels.Owner = 0;
             partsModels.Brand = carBrand;
             partsModels.Car = car;
-             
-             db.Parts.Add(partsModels);
-             db.SaveChanges();
+            partsModels.SaleDate = DateTime.Now;
+            
+            db.Parts.Add(partsModels);
+           
+            db.SaveChanges();
+
+           
+
+               
                return RedirectToAction("Index");
             
            
@@ -151,14 +157,20 @@ namespace ClassicGarage.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult Edit([Bind(Include = "ID,CarId,Name,PartNumber,PurchasePrice,SellPrice,PurchaseDate,SaleDate")] PartsModels partsModels)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(partsModels).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
             ViewBag.CarId = new SelectList(db.Cars, "ID", "Model", partsModels.CarId);
-            return View(partsModels);
+            db.Entry(partsModels).State = EntityState.Modified;
+            var carBrand = db.Cars.Where(c => c.ID == partsModels.CarId).FirstOrDefault().Brand.Name;
+            var car = db.Cars.Where(c => c.ID == partsModels.CarId).FirstOrDefault();
+
+            partsModels.Owner = 0;
+            partsModels.Brand = carBrand;
+            partsModels.Car = car;
+
+            db.SaveChanges();
+                return RedirectToAction("Index");
+            
+            
+            //return View(partsModels);
         }
 
         // GET: PartsModels/Delete/5

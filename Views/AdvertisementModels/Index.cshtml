@@ -10,24 +10,31 @@
 @if (User.IsInRole("user"))
 {
     <p>
-        @Html.ActionLink("Stwórz nowy", "CreateUser")
+        @Html.ActionLink("Stwórz nowe", "CreateUser")
     </p>
 
 }
 else if (User.IsInRole("admin"))
 {
-    <p>
-        @Html.ActionLink("Stwórz nowy", "Create")
-    </p>
+    
 }
 
 <table class="table">
     <tr>
         <th>
-            ID samochodu
+            Marka
         </th>
         <th>
-            Aktywne
+            Model
+        </th>
+        <th>
+            Rocznik
+        </th>
+        <th>
+            Seria
+        </th>
+        <th>
+            Numer Telefonu
         </th>
         <th>
             Cena
@@ -39,22 +46,39 @@ else if (User.IsInRole("admin"))
     {
         foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CarID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Active)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OfferAmount)
-                </td>
-                <td>
-                    @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }) |
-                    @Html.ActionLink("Usuń", "Delete", new { id = item.ID })
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Car.Brand.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Car.Model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Car.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Car.Series)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Car.Owner.PhoneNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OfferAmount)
+            </td>
+            @if (User.IsInRole("admin") || User.IsInRole("user"))
+            {
+                if (User.Identity.Name == item.Car.Owner.Email)
+                {
+                    <td>
+                        @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Usuń", "Delete", new { id = item.ID })
+                    </td>
+                }
+
+            }
+
+        </tr>
         }
     }
 

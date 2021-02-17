@@ -52,13 +52,11 @@ namespace ClassicGarage.Models
 
         public int? OwnerId { set; get; }
 
-        public int? AdvertisementID { set; get; }
-       
 
         public virtual OwnerModels Owner { get; set; }
         public virtual ICollection<PartsModels> Parts { get; set; }
         public virtual ICollection<RepairModels> Repairs { get; set; }
-        public virtual AdvertisementModels Advertisement { get; set; }
+        public virtual ICollection<AdvertisementModels> Advertisement { get; set; }
         public virtual BrandModel Brand { set; get; }
     }
 }

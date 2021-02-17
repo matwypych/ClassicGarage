@@ -32,6 +32,9 @@ namespace ClassicGarage.DAL
                 .WithRequired(m => m.Brand)
                 .HasForeignKey(f => f.BrandID);
 
+         
+             
+
         }
 
     }

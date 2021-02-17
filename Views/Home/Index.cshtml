@@ -6,7 +6,7 @@
 
 <div class="jumbotron">
     <h1>Classic Garage</h1>
-    <p class="lead">Klasyczny garaż jest to aplikacja webowa kontrolująca ołgłoszenia, naprawy i sprzedaż samochodów</p>
+    <p class="lead">Klasyczny garaż jest to aplikacja webowa kontrolująca ogłoszenia, naprawy i sprzedaż samochodów</p>
 </div>
 
 @using (Html.BeginForm())
@@ -21,7 +21,6 @@
 
                 if (item.Email == User.Identity.Name)
                 {
-                    <h1>Witaj użytkowniku</h1>
                     ok = true;
                 }
             }

@@ -50,7 +50,7 @@ namespace ClassicGarage.Controllers
         [Authorize(Roles = "user")]
         public ActionResult CreateUser()
         {
-            ViewBag.CarID = new SelectList(db.Cars, "ID", "Model");
+            ViewBag.CarID = new SelectList(db.Cars.Where(e => e.Owner.Email == User.Identity.Name), "ID", "Model");
             return View();
         }
 
@@ -62,14 +62,14 @@ namespace ClassicGarage.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult Create([Bind(Include = "ID,CarID,Active,OfferAmount")] AdvertisementModels advertisementModels)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 db.Advertisements.Add(advertisementModels);
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
+            //}
 
-            return View(advertisementModels);
+            //return View(advertisementModels);
         }
 
         [HttpPost]
@@ -77,6 +77,8 @@ namespace ClassicGarage.Controllers
         [Authorize(Roles = "user")]
         public ActionResult CreateUser([Bind(Include = "ID,CarID,Active,OfferAmount")] AdvertisementModels advertisementModels)
         {
+            advertisementModels.Active = false;
+
             if (ModelState.IsValid)
             {
                 db.Advertisements.Add(advertisementModels);
@@ -111,6 +113,11 @@ namespace ClassicGarage.Controllers
         [Authorize(Roles = "admin, user")]
         public ActionResult Edit([Bind(Include = "ID,CarID,Active,OfferAmount")] AdvertisementModels advertisementModels)
         {
+            if(User.IsInRole("user"))
+            {
+                advertisementModels.Active = false;
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(advertisementModels).State = EntityState.Modified;

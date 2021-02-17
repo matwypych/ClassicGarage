@@ -11,8 +11,9 @@ namespace ClassicGarage.Models
     public class AdvertisementModels
     {
         public int ID { set; get; }
-        [Required]
+
         public int CarID { set; get; }
+
         [Required]
         public bool Active { set; get; }
 
@@ -20,6 +21,6 @@ namespace ClassicGarage.Models
         [Required]
         [Display(Name = "Offer Amount")]
         public double OfferAmount { get; set; }
-        public virtual ICollection<CarModels> Cars { get; set; }
+        public virtual CarModels Car { get; set; }
     }
 }

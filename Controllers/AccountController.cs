@@ -166,7 +166,7 @@ namespace ClassicGarage.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Potwierdź konto", "Potwierdź konto, klikając <a href=\"" + callbackUrl + "\">tutaj</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("IndexNewUser", "Home");
                 }
                 AddErrors(result);
             }

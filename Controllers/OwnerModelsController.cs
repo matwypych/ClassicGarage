@@ -93,7 +93,14 @@ namespace ClassicGarage.Controllers
             {
                 db.Entry(owner).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                if(User.IsInRole("admin"))
+                {
+                    return RedirectToAction("Index");
+                } else
+                {
+                    return RedirectToAction("IndexUser");
+                }
+                
             }
             return View(owner);
         }
@@ -125,13 +132,13 @@ namespace ClassicGarage.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize(Roles = "admin,user")]
+       
         public ActionResult Create()
         {
             return View();
         }
 
-        [Authorize(Roles = "admin,user")]
+       
         [HttpPost]
         public ActionResult Create([Bind(Include ="FirstName, LastName, PhoneNo, Email")] OwnerModels owner)
         {
@@ -139,7 +146,14 @@ namespace ClassicGarage.Controllers
             {
                 db.Owners.Add(owner);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                if(User.IsInRole("admin"))
+                {
+                    return RedirectToAction("Index");
+                } else
+                {
+                    return RedirectToAction("IndexUser");
+                }
+               
             }
             return View(owner);
         }

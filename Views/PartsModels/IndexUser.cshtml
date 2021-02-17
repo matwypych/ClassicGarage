@@ -38,6 +38,9 @@
         <th>
             Cena
         </th>
+        <th>
+            
+        </th>
     </tr>
 
     @using (Html.BeginForm())
@@ -59,9 +62,12 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.SellPrice)
                     </td>
-                    <td>
-                        @Html.ActionLink("Kup", "Buy", new { id = item.ID })
-                    </td>
+                    @if (User.IsInRole("user"))
+                        {
+                            <td>
+                                @Html.ActionLink("Kup", "Buy", new { id = item.ID })
+                            </td>
+                        }
                 </tr>
             }
 
@@ -70,49 +76,53 @@
 
 </table>
 
+@if (User.IsInRole("user"))
+{
+    <h2>Zamówione części</h2>
 
-<h2>Zamówione części</h2>
+    <table class="table">
+        <tr>
+            <th>
+                Marka
+            </th>
+            <th>
+                Model
+            </th>
+            <th>
+                Nazwa części
+            </th>
+            <th>
+                Cena
+            </th>
+        </tr>
 
-<table class="table">
-    <tr>
-        <th>
-            Marka
-        </th>
-        <th>
-            Model
-        </th>
-        <th>
-            Nazwa części
-        </th>
-        <th>
-            Cena
-        </th>
-    </tr>
-
-    @using (Html.BeginForm())
-    {
-        foreach (var item in Model.Parts)
+        @using (Html.BeginForm())
         {
-            if (item.Owner == headerMetadata2.ID)
+            foreach (var item in Model.Parts)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Brand)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Car.Model)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SellPrice)
-                    </td>
-                </tr>
+                if (item.Owner == headerMetadata2.ID)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Brand)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Car.Model)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SellPrice)
+                        </td>
+                    </tr>
+                }
+
             }
-
         }
-    }
 
-</table>
+    </table>
+}
+
+
 

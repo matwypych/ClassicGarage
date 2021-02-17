@@ -138,10 +138,10 @@ namespace ClassicGarage.Controllers
         [Authorize(Roles = "user")]
         public ActionResult CreateUser([Bind(Include = "ID,BrandID,Model,Year,VIN,Series,Photo,PurchaseDate,SaleDate,PurchasePrice,SellPrice")] CarModels carModels)
         {
-            var userId = db.Cars.Where(i => i.Owner.Email == User.Identity.Name);//.Select(n => n.Owner.ID);
+            var userId = db.Owners.Where(i => i.Email == User.Identity.Name);//.Select(n => n.Owner.ID);
             
 
-            carModels.OwnerId = userId.FirstOrDefault().Owner.ID;
+            carModels.OwnerId = userId.FirstOrDefault().ID;
 
             if (ModelState.IsValid)
             {

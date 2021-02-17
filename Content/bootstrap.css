@@ -315,6 +315,7 @@ th {
     .table-bordered th,
     .table-bordered td {
         border: 1px solid #ddd !important;
+        content: attr(data-title);
     }
 }
 
@@ -2902,6 +2903,9 @@ caption {
 
 th {
     text-align: left;
+    background-color:orange;
+    color:black
+    
 }
 
 .table {
@@ -4233,6 +4237,7 @@ input[type="submit"].btn-block,
 input[type="reset"].btn-block,
 input[type="button"].btn-block {
     width: 100%;
+    background-color:orange;
 }
 
 .fade {
@@ -4641,6 +4646,7 @@ tbody.collapse.in {
     position: relative;
     display: table;
     border-collapse: separate;
+   
 }
 
     .input-group[class*="col-"] {

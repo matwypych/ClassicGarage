@@ -12,12 +12,22 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            ID
+            Marka
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CarID)
+            @Html.DisplayFor(model => model.Car.Brand.Name)
         </dd>
+
+        <dt>
+            Model
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Car.Model)
+        </dd>
+
+
 
         <dt>
             Aktywne
@@ -28,7 +38,7 @@
         </dd>
 
         <dt>
-           Cena
+            Cena
         </dt>
 
         <dd>

@@ -22,10 +22,22 @@ namespace ClassicGarage.DAL
                 new BrandModel(){Name = "Mercedes"}
             };
 
+            BrandModel brand1 = new BrandModel() { Name = "Ford" };
 
-         
-           foreach (var item in brandModels)
-           {
+            OwnerModels user1 = new OwnerModels() { FirstName = "Mateusz", LastName = "Wypych", Email = "matjas9@gmail.com", PhoneNo = 506666666, ID = 1 };
+
+            DateTime newDAte = DateTime.Now;
+
+
+            IList<CarModels> carModels = new List<CarModels>
+            {
+                new CarModels(){Brand=brand1, ID=1, Model="Ka", Owner=user1, BrandID=7, PurchaseDate=newDAte,
+                    OwnerId=1, PurchasePrice=30000, Series=1, VIN=4445556667, Year=1998, SaleDate=newDAte}
+            };
+
+
+            foreach (var item in brandModels)
+            {
                context.Brand.Add(item);
             }
 

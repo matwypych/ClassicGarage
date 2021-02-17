@@ -17,8 +17,17 @@ namespace ClassicGarage.Controllers
 
         public ActionResult Index()
         {
-            var owners = db.Owners;
-            return View(owners.ToList());
+            if(db.Owners != null)
+            {
+                var owners = db.Owners;
+                return View(owners.ToList());
+            }
+            return View();   
+        }
+
+        public ActionResult IndexNewUser()
+        {
+            return View();
         }
 
         public ActionResult About()
